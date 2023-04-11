@@ -1,1 +1,4 @@
-console.log("hello world!");
+import { camelCase } from "lodash";
+
+console.log("bruh");
+console.log(camelCase("hello world!"));
