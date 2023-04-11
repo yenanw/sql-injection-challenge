@@ -1,5 +1,6 @@
 const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
+const NodePolyfillPlugin = require("node-polyfill-webpack-plugin");
 
 module.exports = {
   entry: "./src/index.js",
@@ -10,7 +11,12 @@ module.exports = {
   },
 
   module: {
-    rules: [],
+    rules: [
+      {
+        test: /\.wasm$/,
+        type: "javascript/auto",
+      },
+    ],
   },
 
   plugins: [
@@ -19,7 +25,18 @@ module.exports = {
       template: "./public/index.html",
       filename: "index.html",
     }),
+    new NodePolyfillPlugin(),
   ],
+
+  resolve: {
+    fallback: {
+      fs: false,
+    },
+  },
+
+  experiments: {
+    topLevelAwait: true,
+  },
 
   devServer: {
     static: {
