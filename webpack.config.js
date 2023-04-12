@@ -2,11 +2,39 @@ const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const NodePolyfillPlugin = require("node-polyfill-webpack-plugin");
 
+const config = [
+  {
+    page: "index.html",
+    codeFile: "index",
+  },
+  {
+    page: "about.html",
+  },
+];
+
+const entryHtmlPlugins = config.map(({ page, codeFile }) => {
+  const obj = {
+    filename: page,
+    template: `./public/${page}`
+  };
+
+  if (codeFile === "*") {
+    obj.inject = "body";
+  } else if (codeFile !== undefined) {
+    obj.chunk = [codeFile];
+  } else {
+    obj.inject = false;
+  }
+
+  return new HtmlWebpackPlugin(obj);
+});
+
 module.exports = {
-  entry: "./src/index.js",
+  entry: { index: "./src/index.js" },
+
   output: {
     path: path.resolve(__dirname, "dist"),
-    filename: "bundle.js",
+    filename: "[name].js",
     clean: true,
   },
 
@@ -19,14 +47,7 @@ module.exports = {
     ],
   },
 
-  plugins: [
-    new HtmlWebpackPlugin({
-      inject: "body",
-      template: "./public/index.html",
-      filename: "index.html",
-    }),
-    new NodePolyfillPlugin(),
-  ],
+  plugins: [...entryHtmlPlugins, new NodePolyfillPlugin()],
 
   resolve: {
     fallback: {
