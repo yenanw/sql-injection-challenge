@@ -64,7 +64,16 @@ module.exports = {
       directory: path.join(__dirname, "dist"),
       publicPath: "/public/",
     },
+    proxy: {
+      '/api':'http://127.0.0.1:1234'
+    },
+
+    headers: {
+      "Access-Control-Allow-Origin": "*",
+      "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, PATCH, OPTIONS",
+      "Access-Control-Allow-Headers": "X-Requested-With, Content-Type, Authorization"
+    },
     compress: true,
-    port: 9000,
+    port: 3000,
   },
 };
