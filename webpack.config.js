@@ -25,7 +25,7 @@ const entryHtmlPlugins = config.map(({ page, codeFile }) => {
   if (codeFile === "*") {
     obj.inject = "body";
   } else if (codeFile !== undefined) {
-    obj.chunk = [codeFile];
+    obj.chunks = [codeFile];
   } else {
     obj.inject = false;
   }
@@ -41,7 +41,7 @@ module.exports = {
 
   output: {
     path: path.resolve(__dirname, "dist"),
-    filename: "[name].js",
+    filename: "[name].bundle.js",
     clean: true,
   },
 
@@ -64,6 +64,12 @@ module.exports = {
 
   experiments: {
     topLevelAwait: true,
+  },
+
+  optimization: {
+    splitChunks: {
+      chunks: "all",
+    },
   },
 
   devServer: {
