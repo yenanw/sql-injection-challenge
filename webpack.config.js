@@ -9,7 +9,7 @@ const config = [
     codeFile: "index",
   },
   {
-    page: "challenge1.html",
+    page: "challenges/challenge1.html",
     codeFile: "challenge1"
   },
   {
@@ -39,7 +39,7 @@ module.exports = {
   entry: {
     index: "./src/index.js",
     syringe: "./src/challenges/syringe/syringe.js",
-    challenge1: "./src/challenge1.js"
+    challenge1: "./src/challenges/challenge1.js"
   },
 
   output: {
