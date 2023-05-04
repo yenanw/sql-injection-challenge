@@ -2,13 +2,15 @@ const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const NodePolyfillPlugin = require("node-polyfill-webpack-plugin");
 
+
 const config = [
   {
     page: "index.html",
     codeFile: "index",
   },
   {
-    page: "about.html",
+    page: "challenge1.html",
+    codeFile: "challenge1"
   },
 ];
 
@@ -21,7 +23,7 @@ const entryHtmlPlugins = config.map(({ page, codeFile }) => {
   if (codeFile === "*") {
     obj.inject = "body";
   } else if (codeFile !== undefined) {
-    obj.chunk = [codeFile];
+    obj.chunks = [codeFile];
   } else {
     obj.inject = false;
   }
@@ -30,8 +32,8 @@ const entryHtmlPlugins = config.map(({ page, codeFile }) => {
 });
 
 module.exports = {
-  entry: { index: "./src/index.js" },
 
+  entry: { index: "./src/index.js", challenge1: "./src/challenge1.js" },
   output: {
     path: path.resolve(__dirname, "dist"),
     filename: "[name].js",
@@ -49,17 +51,12 @@ module.exports = {
 
   plugins: [...entryHtmlPlugins, new NodePolyfillPlugin()],
 
-  resolve: {
-    fallback: {
-      fs: false,
-    },
-  },
-
+  
   experiments: {
     topLevelAwait: true,
   },
-
   devServer: {
+
     static: {
       directory: path.join(__dirname, "dist"),
       publicPath: "/public/",
@@ -67,7 +64,7 @@ module.exports = {
     proxy: {
       '/api':'http://127.0.0.1:1234'
     },
-
+    
     headers: {
       "Access-Control-Allow-Origin": "*",
       "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, PATCH, OPTIONS",
@@ -75,5 +72,10 @@ module.exports = {
     },
     compress: true,
     port: 3000,
+  },
+  resolve: {
+    fallback: {
+      fs: false,
+    },
   },
 };

@@ -1,4 +1,6 @@
 const Database = require("../models/databasePathModel.js");
+const path = require('path');
+
 
 const getDatabasePath = async (req, res) => {
     const challengeNumber = parseInt(req.params.challengeNumber);
@@ -13,5 +15,24 @@ const getDatabasePath = async (req, res) => {
     res.status(200).json(databasePath);
 };
 
+const getDatabase = async (req, res) => {
+    const databaseFile = req.params.databaseFile;
 
-module.exports = { getDatabasePath };
+    const dbDir = path.join('..', 'database_files')
+
+    const options = {
+        root: path.join(__dirname, dbDir)
+    };
+
+    res.sendFile(databaseFile, options, function (err) {
+        if (err) {
+            console.log(err);
+        } else {
+            console.log('Sent:', databaseFile);
+        }
+    });
+
+}
+
+
+module.exports = { getDatabasePath, getDatabase};
