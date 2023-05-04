@@ -12,12 +12,16 @@ const config = [
     page: "challenge1.html",
     codeFile: "challenge1"
   },
+  {
+    page: "challenges/syringe.html",
+    codeFile: "syringe",
+  },
 ];
 
 const entryHtmlPlugins = config.map(({ page, codeFile }) => {
   const obj = {
     filename: page,
-    template: `./public/${page}`
+    template: `./public/${page}`,
   };
 
   if (codeFile === "*") {
@@ -32,11 +36,15 @@ const entryHtmlPlugins = config.map(({ page, codeFile }) => {
 });
 
 module.exports = {
+  entry: {
+    index: "./src/index.js",
+    syringe: "./src/challenges/syringe/syringe.js",
+    challenge1: "./src/challenge1.js"
+  },
 
-  entry: { index: "./src/index.js", challenge1: "./src/challenge1.js" },
   output: {
     path: path.resolve(__dirname, "dist"),
-    filename: "[name].js",
+    filename: "[name].bundle.js",
     clean: true,
   },
 
@@ -55,6 +63,13 @@ module.exports = {
   experiments: {
     topLevelAwait: true,
   },
+
+  optimization: {
+    splitChunks: {
+      chunks: "all",
+    },
+  },
+
   devServer: {
 
     static: {
@@ -62,13 +77,14 @@ module.exports = {
       publicPath: "/public/",
     },
     proxy: {
-      '/api':'http://127.0.0.1:1234'
+      "/api": "http://127.0.0.1:1234",
     },
     
     headers: {
       "Access-Control-Allow-Origin": "*",
       "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, PATCH, OPTIONS",
-      "Access-Control-Allow-Headers": "X-Requested-With, Content-Type, Authorization"
+      "Access-Control-Allow-Headers":
+        "X-Requested-With, Content-Type, Authorization",
     },
     compress: true,
     port: 3000,
