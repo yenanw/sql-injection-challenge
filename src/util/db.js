@@ -5,7 +5,7 @@ import sqlWasm from "!!file-loader?name=sql-wasm-[contenthash].wasm!sql.js/dist/
 
 const SQL = await initSqlJs({ locateFile: () => sqlWasm });
 
-export default async function (cnum) {
+async function getDatabasePath (cnum) {
   const dbPathResponse = await fetch(`/api/getDatabasePath/${cnum}`, {
     headers: {
       "Content-Type": "application/json",
@@ -25,3 +25,19 @@ export default async function (cnum) {
     return new SQL.Database(dbFilePath);
   }
 };
+
+
+async function getDatabase(database_file) {
+  const sqlPromise = initSqlJs({
+    locateFile: () => sqlWasm
+  });
+ 
+  const dataPromise = fetch(`/api/getDatabase/${database_file}`).then(res => res.arrayBuffer());
+  const [SQL, buf] = await Promise.all([sqlPromise, dataPromise])
+  return new SQL.Database(new Uint8Array(buf));
+
+
+};
+
+
+export {getDatabase, getDatabasePath};

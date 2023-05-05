@@ -9,8 +9,8 @@ const config = [
     codeFile: "index",
   },
   {
-    page: "challenges/challenge1.html",
-    codeFile: "challenge1"
+    page: "challenges/cookies.html",
+    codeFile: "cookies"
   },
   {
     page: "challenges/syringe.html",
@@ -39,7 +39,7 @@ module.exports = {
   entry: {
     index: "./src/index.js",
     syringe: "./src/challenges/syringe/syringe.js",
-    challenge1: "./src/challenges/challenge1.js"
+    cookies: "./src/challenges/cookies.js"
   },
 
   output: {
@@ -54,6 +54,19 @@ module.exports = {
         test: /\.wasm$/,
         type: "javascript/auto",
       },
+      // {
+      //   test: /\.(png|svg|jpg|jpeg|gif)$/i,
+      //   use: [
+      //     {
+      //       loader: 'file-loader',
+      //       options: {
+      //         name: '[name].[ext]',
+      //         outputPath: 'images',
+      //         publicPath: 'images'
+      //       }
+      //     }
+      //   ]
+      //   },
     ],
   },
 
