@@ -18,6 +18,11 @@ const config = [
     filename: "warmup.html",
     codeFile: "warmup",
   },
+  {
+    template: "challenges/plaintext.html",
+    filename: "plaintext.html",
+    codeFile: "plaintext",
+  },
 ];
 
 const entryHtmlPlugins = config.map(({ template, filename, codeFile }) => {
@@ -42,6 +47,7 @@ module.exports = {
     index: "./src/index.js",
     warmup: "./src/challenges/warmup.js",
     cookies: "./src/challenges/cookies.js",
+    plaintext: "./src/challenges/plaintext.js",
   },
 
   output: {

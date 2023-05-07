@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Syringe's Shop</title>
+  </head>
+  <body id="root">
+    <header>
+      <h1>My First Blog</h1>
+      <span>Secret admin login fields</span>
+      <form id="login-form">
+        <input
+        type="text"
+        name="username"
+        id="username-field"
+        class="login-form-field"
+        placeholder="Username"
+        />
+        <input
+        type="password"
+        name="password"
+        id="password-field"
+        class="login-form-field"
+        placeholder="Password"
+        />
+        <input type="submit" value="Login" id="login-form-submit" />
+        <p id="login-msg" style="display:None;"></p>
+      </form>
+
+    </header>
+
+    <main id="post-container">
+      <div>
+        <h3>May the force be with you!</h2>
+        <p><em>Posted on May 4, 2023</em></p>
+        <p>Star Wars is pretty cool, eh?</p>
+      </div>
+
+      <div>
+        <h3>I just lost my job today...</h2>
+        <p><em>Posted on May 1, 2023</em></p>
+        <p>I hate my boss!</p>
+      </div>
+    </main>
+
+    <br>
+
+    <p>Please provide me with any feedback you have regarding the site!</p>
+    <form id ="feedback-form">
+      <label for="name">Name:</label>
+      <input
+        type="text"
+        id="name"
+        name="name"
+        placeholder="Your name"
+        required
+      />
+
+      <label for="message">Message:</label>
+      <textarea
+        id="message"
+        name="message"
+        rows="4"
+        placeholder="Your feedback"
+        required
+      ></textarea>
+
+      <input type="submit" value="Submit" />
+    </form>
+  </body>
+</html>
