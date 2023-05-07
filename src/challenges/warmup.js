@@ -24,14 +24,25 @@ function login(uname, passw) {
   // cuz we care about security, of course
   const hashed = SHA256(passw);
   const stmt = `select password from Users where user='${uname}' and password='${hashed}'`;
-  const res = db.exec(stmt);
+  
+  // gotta make sure the site is robust amirite
+  try {
+    const res = db.exec(stmt);
+    const passwordCol = res[0].values;
 
-  loginMsg.style.display = "block";
-  if (res.length !== 1 || hashed !== res[0]["values"][0]) {
-    // login failed
+    // the query returned then it must mean that the user is legit
+    if (passwordCol.length >= 1) {
+      // login success
+      loginMsg.innerHTML = `Success, welcome to Synringe's Shop ${uname}!`;
+
+      // TODO: change the page layout when success?
+    } else {
+      throw new Error("Login failed!");
+    }
+  } catch (err) {
+    console.log(err);
     loginMsg.innerHTML = "Login failed! Try again maybe?";
-    return;
   }
 
-  loginMsg.innerHTML = `Success, welcome to Synringe's Shop ${uname}!`;
+  loginMsg.style.display = "block";
 }
