@@ -1,15 +1,25 @@
 import { getDatabase } from "../util/db.js";
+import infoBtn from "../util/infoBtn.js";
 
-
-if (!localStorage.getItem('COOKIE')) {
-  localStorage.setItem('COOKIE', 'cookie_value');
+if (!localStorage.getItem("COOKIE")) {
+  localStorage.setItem("COOKIE", "cookie_value");
 }
-
 
 const db = await getDatabase("challenge1.sqlite");
 
+infoBtn(
+  {
+    title: "Cookies",
+    description: "Description here",
+    goal: "Goal",
+    hints: ["give", "some", "hints"],
+    btnText: "optional, even html is fine here",
+  },
+  document.getElementById("root")
+);
+
 try {
-  let cookie = localStorage.getItem('COOKIE');
+  let cookie = localStorage.getItem("COOKIE");
 
   console.log(cookie);
   let stmt = `SELECT username FROM TrackedUsers where cookie_value = '${cookie}'`;
@@ -17,16 +27,15 @@ try {
   let usernameRes = db.exec(stmt); // Possible security flaw.
   const username = usernameRes[0].values[0][0];
 
-
   // Conditional to show "Welcome back" screen
   if (usernameRes) {
     document.getElementById("welcome-back").style.visibility = "visible";
     document.getElementById("username-span").textContent = ` ${username}!`;
 
-    let posts = db.exec(`SELECT * FROM posts where user = '${username}';`)[0].values;
+    let posts = db.exec(`SELECT * FROM posts where user = '${username}';`)[0]
+      .values;
 
-
-    const postTags = posts.map(post => {
+    const postTags = posts.map((post) => {
       return `
         <style>
           .message {margin-bottom: 15px;}
@@ -41,16 +50,13 @@ try {
       `;
     });
 
-    const forumPostsDiv = document.getElementById('forum-posts');
-    forumPostsDiv.innerHTML = postTags.join('');
-
+    const forumPostsDiv = document.getElementById("forum-posts");
+    forumPostsDiv.innerHTML = postTags.join("");
   }
-
 } catch (err) {
   document.getElementById("not-logged-in").style.visibility = "visible";
   console.log("An error occurred, but I'm not tellin...");
   console.log(err);
 }
-
 
 // Injection: cookie_value' AND (SELECT SUBSTRING((SELECT password from users where user = "pablo"),1,1) = "l") --
