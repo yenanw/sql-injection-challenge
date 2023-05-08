@@ -9,7 +9,7 @@ const db = await getDatabase("challenge1.sqlite");
 
 function getPosts(db) {
   let posts = db.exec(`SELECT * FROM posts ORDER BY id DESC;`)[0]
-  .values;
+    .values;
 
   const postTags = posts.map((post) => {
     return `
@@ -52,49 +52,26 @@ try {
     document.getElementById("welcome-back").style.visibility = "visible";
     document.getElementById("username-span").textContent = ` ${username}!`;
 
-    // let posts = db.exec(`SELECT * FROM posts ORDER BY id DESC;`)[0]
-    //   .values;
-
-    // const postTags = posts.map((post) => {
-    //   return `
-    //     <style>
-    //       .message {margin-bottom: 15px;}
-    //       .user {float:left; font-weight:bold; color:#009; margin-bottom: 5px; margin-right: 10px;}
-    //       .content { margin-left: 30px;margin-right: 10px;font-style:italic; color:#; }
-    //     </style>
-
-    //     <div class="message">
-    //       <div class="user">${post[1]}: </div>
-    //       <div class="content">${post[2]}</div>
-    //     </div>
-    //   `;
-    // });
-
     let postTags = getPosts(db);
     let forumPostsDiv = document.getElementById("forum-posts");
     forumPostsDiv.innerHTML = postTags.join("");
-
 
     const button = document.getElementById('button');
 
     button.addEventListener('click', function (event) {
       const text = document.getElementById("text-area").value;
-      
-      if (text){
-        let insertStmt =  db.prepare("INSERT INTO posts (user, content) VALUES (?, ?)");
+
+      if (text) {
+        let insertStmt = db.prepare("INSERT INTO posts (user, content) VALUES (?, ?)");
         insertStmt.bind([username, text]);
         insertStmt.step();
         insertStmt.free();
-        
+
         postTags = getPosts(db);
         forumPostsDiv.innerHTML = postTags.join("");
         document.getElementById("text-area").value = "";
 
       }
-
-
-
-
     });
 
   }
