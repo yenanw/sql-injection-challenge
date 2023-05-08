@@ -9,11 +9,11 @@ const db = await getDatabase("challenge1.sqlite");
 
 infoBtn(
   {
-    title: "Cookies",
-    description: "Description here",
-    goal: "Goal",
-    hints: ["give", "some", "hints"],
-    btnText: "optional, even html is fine here",
+    title: "Cookie Monster",
+    description: "You are shown the homepage of user pablo since his cookie is stored in the browser. Is there any way you can exploit this maybe?",
+    goal: "The goal of this challenge is to find the password of the user named admin.",
+    hints: ["The local storage of the browser is probably a good start.", "This injection is a blind one."],
+    btnText: "Info",
   },
   document.getElementById("root")
 );
@@ -21,9 +21,7 @@ infoBtn(
 try {
   let cookie = localStorage.getItem("COOKIE");
 
-  console.log(cookie);
   let stmt = `SELECT username FROM TrackedUsers where cookie_value = '${cookie}'`;
-  console.log(stmt);
   let usernameRes = db.exec(stmt); // Possible security flaw.
   const username = usernameRes[0].values[0][0];
 
@@ -32,7 +30,7 @@ try {
     document.getElementById("welcome-back").style.visibility = "visible";
     document.getElementById("username-span").textContent = ` ${username}!`;
 
-    let posts = db.exec(`SELECT * FROM posts where user = '${username}';`)[0]
+    let posts = db.exec(`SELECT * FROM posts ORDER BY post_id DESC;`)[0]
       .values;
 
     const postTags = posts.map((post) => {
