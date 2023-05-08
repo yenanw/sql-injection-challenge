@@ -1,4 +1,5 @@
 import { getDatabase } from "../util/db";
+import infoBtn from "../util/infoBtn";
 
 const prev = document.getElementById("prev-post");
 const next = document.getElementById("next-post");
@@ -9,6 +10,17 @@ const loginButton = document.getElementById("login-form-submit");
 const loginMsg = document.getElementById("login-msg");
 
 const db = await getDatabase("challenge2.sqlite");
+
+infoBtn(
+  {
+    title: "Plaintext",
+    description:
+      "Look what you have found - a blogsite by an newbie programmer! It's time to teach 'em the harsh reality of weak security practices.",
+    goal: "Successfully log in as the admin.",
+    hints: ["The password is stored in plaintext", "What does the URL look like?"],
+  },
+  document.getElementById("root")
+);
 
 loginButton.addEventListener("click", (e) => {
   e.preventDefault();
