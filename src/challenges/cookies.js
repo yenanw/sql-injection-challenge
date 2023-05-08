@@ -49,7 +49,6 @@ try {
 } catch (err) {
   document.getElementById("not-logged-in").style.visibility = "visible";
   console.log("An error occurred, but I'm not tellin...");
-  console.log(err);
 }
 
 
