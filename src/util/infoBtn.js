@@ -28,6 +28,11 @@ export default function infoBtn(
   description.setAttribute("class", "info-panel-description");
 
   const hints = document.createElement("ul");
+  const hintsHeader = document.createElement("p");
+  hintsHeader.innerHTML = "Hints";
+  hintsHeader.setAttribute("class", "info-panel-hints-header");
+
+  hints.appendChild(hintsHeader);
   hintsArr.forEach((hint) => {
     const li = document.createElement("li");
     li.innerHTML = hint;
