@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>My Amazing Blogs</title>
+  </head>
+  <body id="root">
+    <header>
+      <h1>My First Blog</h1>
+      <span>Secret admin login fields</span>
+      <form id="login-form">
+        <input
+          type="text"
+          name="username"
+          id="username-field"
+          class="login-form-field"
+          placeholder="Username"
+        />
+        <input
+          type="password"
+          name="password"
+          id="password-field"
+          class="login-form-field"
+          placeholder="Password"
+        />
+        <input type="submit" value="Login" id="login-form-submit" />
+        <p id="login-msg" style="display: None"></p>
+      </form>
+    </header>
+
+    <br />
+
+    <button id="prev-post">prev</button>
+    <button id="next-post">next</button>
+    <main id="post-container"></main>
+  </body>
+</html>

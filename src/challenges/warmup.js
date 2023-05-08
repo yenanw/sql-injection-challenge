@@ -45,7 +45,7 @@ function login(uname, passw) {
     // the query returned then it must mean that the user is legit
     if (passwordCol.length >= 1) {
       // login success
-      loginMsg.innerHTML = `Success, welcome to Synringe's Shop ${uname}!`;
+      loginMsg.innerHTML = `Success, welcome to Syringe's Shop ${uname}!`;
 
       // TODO: change the page layout when success?
     } else {
