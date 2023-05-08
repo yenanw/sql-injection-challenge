@@ -34,7 +34,7 @@ infoBtn(
     title: "Cookie Monster",
     description: "You are shown the homepage of user pablo since his cookie is stored in the browser. Is there any way you can exploit this maybe?",
     goal: "The goal of this challenge is to find the password of the user named admin.",
-    hints: ["The local storage of the browser is probably a good start.", "This injection is a blind one."],
+    hints: ["The local storage of the browser is probably a good start.", "This injection is a blind one.", "See what happens if you change the cookie value..."],
     btnText: "Info",
   },
   document.getElementById("root")
@@ -42,14 +42,13 @@ infoBtn(
 
 try {
   let cookie = localStorage.getItem("COOKIE");
-
   let cookieStmt = `SELECT username FROM TrackedUsers where cookie_value = '${cookie}'`;
   let usernameRes = db.exec(cookieStmt);
   const username = usernameRes[0].values[0][0];
 
   // Conditional to show "Welcome back" screen
   if (usernameRes) {
-    document.getElementById("welcome-back").style.visibility = "visible";
+    document.getElementById("welcome-back").style.display = "block";
     document.getElementById("username-span").textContent = ` ${username}!`;
 
     let postTags = getPosts(db);
@@ -76,8 +75,7 @@ try {
 
   }
 } catch (err) {
-  document.getElementById("not-logged-in").style.visibility = "visible";
+  document.getElementById("not-logged-in").style.display = "block";
   console.log("An error occurred, but I'm not tellin...");
 }
 
-// Injection: cookie_value' AND (SELECT SUBSTRING((SELECT password from users where user = "pablo"),1,1) = "l") --
