@@ -35,8 +35,6 @@ async function getDatabase(database_file) {
   const dataPromise = fetch(`/api/getDatabase/${database_file}`).then(res => res.arrayBuffer());
   const [SQL, buf] = await Promise.all([sqlPromise, dataPromise])
   return new SQL.Database(new Uint8Array(buf));
-
-
 };
 
 

@@ -4,6 +4,7 @@
   "repository": {
     "url": "git+https://github.com/yenanw/sql-injection-challenge.git"
   },
+  "homepage": "https://yenanw.github.io/sql-injection-challenge",
   "description": "",
   "main": "index.js",
   "scripts": {

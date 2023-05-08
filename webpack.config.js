@@ -2,26 +2,28 @@ const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const NodePolyfillPlugin = require("node-polyfill-webpack-plugin");
 
-
 const config = [
   {
-    page: "index.html",
+    template: "index.html",
+    filename: "index.html",
     codeFile: "index",
   },
   {
-    page: "challenges/cookies.html",
-    codeFile: "cookies"
+    template: "challenges/cookies.html",
+    filename: "cookies.html",
+    codeFile: "cookies",
   },
   {
-    page: "challenges/syringe.html",
-    codeFile: "syringe",
+    template: "challenges/warmup.html",
+    filename: "warmup.html",
+    codeFile: "warmup",
   },
 ];
 
-const entryHtmlPlugins = config.map(({ page, codeFile }) => {
+const entryHtmlPlugins = config.map(({ template, filename, codeFile }) => {
   const obj = {
-    filename: page,
-    template: `./public/${page}`,
+    template: `./public/${template}`,
+    filename: filename,
   };
 
   if (codeFile === "*") {
@@ -38,8 +40,8 @@ const entryHtmlPlugins = config.map(({ page, codeFile }) => {
 module.exports = {
   entry: {
     index: "./src/index.js",
-    syringe: "./src/challenges/syringe/syringe.js",
-    cookies: "./src/challenges/cookies.js"
+    warmup: "./src/challenges/warmup.js",
+    cookies: "./src/challenges/cookies.js",
   },
 
   output: {
@@ -72,7 +74,6 @@ module.exports = {
 
   plugins: [...entryHtmlPlugins, new NodePolyfillPlugin()],
 
-  
   experiments: {
     topLevelAwait: true,
   },
@@ -84,7 +85,6 @@ module.exports = {
   },
 
   devServer: {
-
     static: {
       directory: path.join(__dirname, "dist"),
       publicPath: "/public/",
@@ -92,7 +92,7 @@ module.exports = {
     proxy: {
       "/api": "http://127.0.0.1:1234",
     },
-    
+
     headers: {
       "Access-Control-Allow-Origin": "*",
       "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, PATCH, OPTIONS",
