@@ -68,17 +68,17 @@ try {
     forumPostsDiv.innerHTML = postTags.join("");
 
     // Add button and eventListener that creates a new post in db if pressed
-    const button = document.getElementById('button');
-    button.addEventListener('click', function (event) {
+    const postButton = document.getElementById('post-button');
+    postButton.addEventListener('click', function (event) {
 
-      const text = document.getElementById("text-area").value;
+      const postText = document.getElementById("post-text-area").value;
 
 
-      if (text) {
+      if (postText) {
 
         // Insert text from the text-area to posts table, prepared statement
         let insertStmt = db.prepare("INSERT INTO posts (user, content) VALUES (?, ?)");
-        insertStmt.bind([username, text]);
+        insertStmt.bind([username, postText]);
         // Execute statement
         insertStmt.step();
         // Free memory to prevent memory leaks
@@ -92,6 +92,24 @@ try {
 
       }
     });
+
+
+    // Check if user found correct password
+    const answerButton = document.getElementById('answer-button');
+    answerButton.addEventListener('click', function (event) {
+      // Get text from text area and remove trailing whitespaces
+      const answerText = document.getElementById("answer-text-area").value.trim();
+
+      if (answerText) {
+        const adminPassword = db.exec('SELECT password FROM users WHERE user="admin";')[0].values[0][0];
+        if (answerText === adminPassword) {
+          alert("Congratulations! You found the correct password.")
+        } else {
+          alert("That wasn't quite right. Try again;")
+        }
+      }
+
+    })
 
   }
 
