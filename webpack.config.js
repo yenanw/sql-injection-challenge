@@ -2,6 +2,7 @@ const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const NodePolyfillPlugin = require("node-polyfill-webpack-plugin");
 
+
 const config = [
   {
     template: "index.html",
@@ -43,6 +44,7 @@ const entryHtmlPlugins = config.map(({ template, filename, codeFile }) => {
 });
 
 module.exports = {
+  plugins: [...entryHtmlPlugins, new NodePolyfillPlugin()],
   entry: {
     index: "./src/index.js",
     warmup: "./src/challenges/warmup.js",
@@ -62,23 +64,9 @@ module.exports = {
         test: /\.wasm$/,
         type: "javascript/auto",
       },
-      // {
-      //   test: /\.(png|svg|jpg|jpeg|gif)$/i,
-      //   use: [
-      //     {
-      //       loader: 'file-loader',
-      //       options: {
-      //         name: '[name].[ext]',
-      //         outputPath: 'images',
-      //         publicPath: 'images'
-      //       }
-      //     }
-      //   ]
-      //   },
     ],
   },
 
-  plugins: [...entryHtmlPlugins, new NodePolyfillPlugin()],
 
   experiments: {
     topLevelAwait: true,
