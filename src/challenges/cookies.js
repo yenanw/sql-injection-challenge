@@ -101,7 +101,10 @@ try {
       const answerText = document.getElementById("answer-text-area").value.trim();
 
       if (answerText) {
+        // Get admin password from database
         const adminPassword = db.exec('SELECT password FROM users WHERE user="admin";')[0].values[0][0];
+
+        // Compare admin password to user's answer
         if (answerText === adminPassword) {
           alert("Congratulations! You found the correct password.")
         } else {
