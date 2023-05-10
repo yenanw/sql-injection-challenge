@@ -1,7 +1,7 @@
 const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const NodePolyfillPlugin = require("node-polyfill-webpack-plugin");
-const WebpackObfuscator = require("webpack-obfuscator");
+
 
 const config = [
   {
@@ -44,16 +44,7 @@ const entryHtmlPlugins = config.map(({ template, filename, codeFile }) => {
 });
 
 module.exports = {
-  plugins: [
-    ...entryHtmlPlugins,
-    new NodePolyfillPlugin(),
-    new WebpackObfuscator(
-      {
-        rotateStringArray: true,
-      },
-      []
-    ),
-  ],
+  plugins: [...entryHtmlPlugins, new NodePolyfillPlugin()],
   entry: {
     index: "./src/index.js",
     warmup: "./src/challenges/warmup.js",
@@ -75,6 +66,7 @@ module.exports = {
       },
     ],
   },
+
 
   experiments: {
     topLevelAwait: true,
