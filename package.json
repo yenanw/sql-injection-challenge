@@ -26,10 +26,12 @@
     "gh-pages": "^5.0.0",
     "html-loader": "^4.2.0",
     "html-webpack-plugin": "^5.5.0",
+    "javascript-obfuscator": "^4.0.2",
     "node-polyfill-webpack-plugin": "^2.0.1",
     "webpack": "~5.78.0",
     "webpack-cli": "^5.0.1",
     "webpack-dev-server": "^4.13.2",
-    "webpack-node-externals": "^3.0.0"
+    "webpack-node-externals": "^3.0.0",
+    "webpack-obfuscator": "^3.5.1"
   }
 }
