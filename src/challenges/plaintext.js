@@ -17,7 +17,10 @@ infoBtn(
     description:
       "Look what you have found - a blogsite by an newbie programmer! It's time to teach 'em the harsh reality of weak security practices.",
     goal: "Successfully log in as the admin.",
-    hints: ["The password is stored in plaintext", "What does the URL look like?"],
+    hints: [
+      "The password is stored in plaintext",
+      "What does the URL look like?",
+    ],
   },
   document.getElementById("root")
 );
@@ -45,13 +48,21 @@ function loadPost() {
     }
 
     const stmt = `select title, date, content from Posts where id='${postId}'`;
-    let res = db.exec(stmt)[0].values[0];
+    let res = db.exec(stmt);
 
+    if (res[0] === undefined) {
+      throw `There is no post with id ${postId}!`;
+    }
+
+    res = res[0].values[0];
     createPost(res[0], res[1], res[2]);
   } catch (err) {
     const notFound = document.createElement("h1");
+    const errMsg = document.createElement("p");
     notFound.innerHTML = "Post not found!";
+    errMsg.innerHTML = err;
     postContainer.appendChild(notFound);
+    postContainer.appendChild(errMsg);
   }
 
   setButton(parseInt(postId) - 1, prev);
