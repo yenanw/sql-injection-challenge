@@ -88,7 +88,7 @@ try {
         // Get current posts and update HTML
         postTags = getPosts(db);
         forumPostsDiv.innerHTML = postTags.join("");
-        document.getElementById("text-area").value = "";
+        document.getElementById("post-text-area").value = "";
 
       }
     });
